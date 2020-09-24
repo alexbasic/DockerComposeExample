@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+
+  service:
+    container_name: compose-test-service
+    image: ${DOCKER_REGISTRY-}compose-test-service
+    build:
+      context: ./service-src
+      dockerfile: Dockerfile
+    ports:
+     - "5000:5000"
+    depends_on:
+     - dependent-service
+     - redis
+    environment:
+     - DEPENDENT_ADDRESS=http://dependent-service:5010/abc
+     - REDIS_ADDRESS=redis
+     - EXTERNAL_ADDRESS=http://host.docker.internal/test/ok.txt
+    networks:
+     - compose-test
+  
+  dependent-service:
+    container_name: compose-test-dependent-service
+    image: ${DOCKER_REGISTRY-}compose-test-dependent-service
+    build:
+      context: ./dependent-service-src
+      dockerfile: Dockerfile
+    networks:
+     - compose-test
+  
+  redis:
+    image: redis
+    networks:
+     - compose-test
+
+networks:
+  compose-test:
+    name: compose-test
+    driver: bridge
