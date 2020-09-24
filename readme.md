@@ -8,20 +8,20 @@
 
 В данном примере запускаются три сервиса в отдельной docker-сети:
 
-service (сервис является api и доступен снаружи на порту 5000)
-dependent-service (сервис не доступен снаружи docker-сети)
-redis (redis-db - ведет счетчик посещщений)
+* service (сервис является api и доступен снаружи на порту 5000)
+* dependent-service (сервис не доступен снаружи docker-сети)
+* redis (redis-db - ведет счетчик посещщений)
 
 
 Для демонстрации доступны следующщие URI:
 
-localhost:5000/ - ведет подсчет посещщений.
-localhost:5000/dependent - загружает строку из dependent-service и пересылет ее клиенту.
-localhost:5000/external - загружает строку из внешнего сервиса и песылает клиенту.
+* localhost:5000/ - ведет подсчет посещщений.
+* localhost:5000/dependent - загружает строку из dependent-service и пересылет ее клиенту.
+* localhost:5000/external - загружает строку из внешнего сервиса и песылает клиенту.
 
 
 Команды для запуска
 
-собрать: docker-compose build
-запустить: docker-compose up
-остановить и удалить: docker-compose down
+* собрать: docker-compose build
+* запустить: docker-compose up
+* остановить и удалить: docker-compose down
