@@ -14,9 +14,10 @@ services:
      - dependent-service
      - redis
     environment:
-     - DEPENDENT_ADDRESS=http://dependent-service:5010/abc
      - REDIS_ADDRESS=redis
-     - EXTERNAL_ADDRESS=http://host.docker.internal/test/ok.txt
+     - DEPENDENT_ENDPOINT=http://dependent-service:5010/abc
+     - EXTERNAL_ENDPOINT=http://host.docker.internal/test/ok.txt
+     - GOOGLE_ENDPOINT=https://www.gstatic.com/teapot/teapot.min.js
     networks:
      - compose-test
   

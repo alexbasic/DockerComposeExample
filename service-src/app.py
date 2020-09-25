@@ -3,9 +3,10 @@ from reds import Redis
 import requests
 import os
 
-dependent_address = os.environ['DEPENDENT_ADDRESS']
-redis_address =  = os.environ['REDIS_ADDRESS']
-external_address =  = os.environ['EXTERNAL_ADDRESS']
+redis_address = os.environ['REDIS_ADDRESS']
+dependent_endpoint = os.environ['DEPENDENT_ENDPOINT']
+external_endpoint = os.environ['EXTERNAL_ENDPOINT']
+google_endpoint = os.environ['GOOGLE_ENDPOINT']
 
 app = Flask(__name__)
 redis = Resdis(host=redis_address, port=6379)
@@ -17,7 +18,7 @@ def get():
 
 @app.route('/dependent')
 def get_dependent():
-    response = requests.get(dependent_address)
+    response = requests.get(dependent_endpoint)
     if response:
         return 'Dependent service is available. Content is: %s' % response.content
     else:
@@ -25,11 +26,19 @@ def get_dependent():
 
 @app.route('/external')
 def get_external():
-    response = requests.get(external_address)
+    response = requests.get(external_endpoint)
     if response:
         return 'External service is available. Content is: %s' % response.content
     else:
         return 'Error! External service is not available.'
+
+@app.route('/google')
+def get_external():
+    response = requests.get(google_endpoint)
+    if response:
+        return 'Google is available. Content is: %s' % response.content
+    else:
+        return 'Error! Google is not available.'
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
