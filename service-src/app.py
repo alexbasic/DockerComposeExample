@@ -1,5 +1,5 @@
 from flask import Flask
-from reds import Redis
+from redis import Redis
 import requests
 import os
 
@@ -9,7 +9,7 @@ external_endpoint = os.environ['EXTERNAL_ENDPOINT']
 google_endpoint = os.environ['GOOGLE_ENDPOINT']
 
 app = Flask(__name__)
-redis = Resdis(host=redis_address, port=6379)
+redis = Redis(host=redis_address, port=6379)
 
 @app.route('/')
 def get():
@@ -33,7 +33,7 @@ def get_external():
         return 'Error! External service is not available.'
 
 @app.route('/google')
-def get_external():
+def get_google():
     response = requests.get(google_endpoint)
     if response:
         return 'Google is available. Content is: %s' % response.content
